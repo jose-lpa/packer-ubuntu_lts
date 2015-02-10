@@ -10,3 +10,9 @@ echo 'deb https://get.docker.com/ubuntu docker main' > /etc/apt/sources.list.d/d
 # Update APT and install 'lxc-docker' package
 apt-get -y update
 apt-get -y install lxc-docker
+
+# Create the 'docker' system group and add 'vagrant' user to it.
+# This allows the standard 'vagrant' user to use Docker without sudo'ing.
+groupadd docker
+gpasswd -a vagrant docker
+service docker restart
