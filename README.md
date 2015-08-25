@@ -5,6 +5,9 @@ LXC enabled to be used.
 
 ## Features
 * Docker installation from official repositories (latest available version).
+* Docker Compose installation from official repositories (latest available version).
+* Docker Machine installation from official repositories (version 0.4.1).
+* [Docker Squash](https://github.com/jwilder/docker-squash) (version 0.1.0).
 * Default `vagrant` user already configured to run Docker without doing `sudo`.
 
 ## Usage
