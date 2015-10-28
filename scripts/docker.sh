@@ -2,14 +2,15 @@
 apt-get -y install apt-transport-https
 
 # Add official Docker repository key to local keychain
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
+apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 
 # Add official Docker repository to APT sources
-echo 'deb https://get.docker.com/ubuntu docker main' > /etc/apt/sources.list.d/docker.list
+echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' > /etc/apt/sources.list.d/docker.list
 
-# Update APT and install 'lxc-docker' package
+# Update APT and install 'linux-image-generic-lts-trusty' package
 apt-get -y update
-apt-get -y install lxc-docker
+apt-get -y install linux-image-generic-lts-trusty
+apt-get -y install docker-engine
 
 # Create the 'docker' system group and add 'vagrant' user to it.
 # This allows the standard 'vagrant' user to use Docker without sudo'ing.
