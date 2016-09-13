@@ -2,28 +2,24 @@
   "builders": [
     {
       "boot_command": [
-        "<esc><wait>",
-        "<esc><wait>",
-        "<enter><wait>",
-        "/install/vmlinuz<wait>",
-        " auto<wait>",
-        " console-setup/ask_detect=false<wait>",
-        " console-setup/layoutcode=us<wait>",
-        " console-setup/modelcode=pc105<wait>",
-        " debconf/frontend=noninteractive<wait>",
-        " debian-installer=en_US<wait>",
-        " fb=false<wait>",
-        " initrd=/install/initrd.gz<wait>",
-        " kbd-chooser/method=us<wait>",
-        " keyboard-configuration/layout=USA<wait>",
-        " keyboard-configuration/variant=USA<wait>",
-        " locale=en_US<wait>",
-        " netcfg/get_domain=vm<wait>",
-        " netcfg/get_hostname=vagrant<wait>",
-        " noapic<wait>",
-        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed-14.04.cfg<wait>",
-        " -- <wait>",
-        "<enter><wait>"
+		"<enter><wait>",
+		"<f6><esc>",
+		"<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+		"<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+		"<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+		"<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+		"<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+		"<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+		"<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+		"<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+		"<bs><bs><bs>",
+		"/install/vmlinuz ",
+		"initrd=/install/initrd.gz ",
+		"net.ifnames=0 ",
+		"auto-install/enable=true ",
+		"debconf/priority=critical ",
+		"preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed-16.04.cfg",
+		"<enter>"
       ],
       "boot_wait": "10s",
       "disk_size": 20480,
@@ -31,15 +27,15 @@
       "guest_os_type": "Ubuntu_64",
       "http_directory": "http",
       "headless": true,
-      "iso_checksum": "0501c446929f713eb162ae2088d8dc8b6426224a",
+      "iso_checksum": "de5ee8665048f009577763efbf4a6f0558833e59",
       "iso_checksum_type": "sha1",
-      "iso_url": "http://mirrors.mit.edu/ubuntu-releases/trusty/ubuntu-14.04.3-server-amd64.iso",
-      "output_directory": "packer-ubuntu-14.04-amd64-virtualbox",
+      "iso_url": "http://mirrors.mit.edu/ubuntu-releases/xenial/ubuntu-16.04.1-server-amd64.iso",
+      "output_directory": "packer-ubuntu-16.04-amd64-virtualbox",
       "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
       "ssh_password": "vagrant",
       "ssh_port": 22,
       "ssh_username": "vagrant",
-      "ssh_wait_timeout": "10000s",
+      "ssh_wait_timeout": "60m",
       "type": "virtualbox-iso",
       "vboxmanage": [
         [
@@ -56,12 +52,12 @@
         ]
       ],
       "virtualbox_version_file": ".vbox_version",
-      "vm_name": "packer-ubuntu-14.04-amd64"
+      "vm_name": "packer-ubuntu-16.04-amd64"
     }
   ],
   "post-processors": [
     {
-      "output": "builds/ubuntu-14.04.box",
+      "output": "builds/ubuntu-16.04.box",
       "type": "vagrant"
     }
   ],
@@ -76,7 +72,7 @@
                         "scripts/vagrant.sh",
                         "scripts/python.sh",
                         "scripts/virtualbox.sh",
-                        "scripts/docker-14.04.sh",
+                        "scripts/docker.sh",
                         "scripts/cleanup.sh"
                     ]
                 }
