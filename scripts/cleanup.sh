@@ -23,6 +23,9 @@ rm -rfv /usr/src/linux-headers*
 # Remove Virtualbox specific files
 rm -rfv /usr/src/vboxguest* /usr/src/virtualbox-ose-guest*
 
+# Clean any Python bytecode
+find / -type f -name "*.pyc" -delete
+
 # Whiteout root
 echo "Whiteouting /"
 count=`df --sync -kP / | tail -n1  | awk -F ' ' '{print $4}'`;
