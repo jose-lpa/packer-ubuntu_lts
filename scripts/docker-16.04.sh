@@ -10,10 +10,9 @@ echo 'deb https://apt.dockerproject.org/repo ubuntu-xenial main' > /etc/apt/sour
 # Update APT and install recommended packages
 apt-get -y update
 apt-get -y install linux-image-extra-$(uname -r) linux-image-extra-virtual
-sudo apt-get install docker-engine
+apt-get -y install docker-engine
 
 # Create the 'docker' system group and add 'vagrant' user to it.
 # This allows the standard 'vagrant' user to use Docker without sudo'ing.
 groupadd docker
 gpasswd -a vagrant docker
-service docker restart

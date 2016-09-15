@@ -72,7 +72,7 @@
                         "scripts/vagrant.sh",
                         "scripts/python.sh",
                         "scripts/virtualbox.sh",
-                        "scripts/docker.sh",
+                        "scripts/docker-16.04.sh",
                         "scripts/cleanup.sh"
                     ]
                 }
