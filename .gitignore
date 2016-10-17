@@ -1,4 +1,5 @@
 *.swp
+**/*.vdi
 
 builds/
 packer_cache/
