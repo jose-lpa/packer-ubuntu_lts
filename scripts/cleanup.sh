@@ -13,7 +13,7 @@ rm /var/lib/dhcp/*
 
 # Make sure Udev doesn't block our network
 echo "Cleaning up udev rules"
-mkdir /etc/udev/rules.d/70-persistent-net.rules
+ln -s /dev/null /etc/udev/rules.d/70-persistent-net.rules
 rm -rfv /dev/.udev/
 rm -v /lib/udev/rules.d/75-persistent-net-generator.rules
 
