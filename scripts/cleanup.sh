@@ -37,11 +37,13 @@ rm /boot/whitespace;
 echo "Whiteouting swaps"
 if [ $(cat /proc/swaps | wc -l) -gt 1 ]; then
     for swappart in `cat /proc/swaps | tail -n +2 | awk -F ' ' '{print $1}'`; do
+        oldUUID="$(blkid $swappart | awk '{print $2}' | cut -d '"' -f 2)"
         swapoff $swappart;
         dd if=/dev/zero of=$swappart;
-        mkswap $swappart;
+        mkswap -U $oldUUID $swappart;
         swapon $swappart;
     done
+    unset oldUUID
 fi
 
 # Zero out the rest of the free space using dd.
