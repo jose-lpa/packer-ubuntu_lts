@@ -13,7 +13,7 @@ rm /var/lib/dhcp/*
 
 # Make sure Udev doesn't block our network
 echo "Cleaning up udev rules"
-mkdir /etc/udev/rules.d/70-persistent-net.rules
+ln -s /dev/null /etc/udev/rules.d/70-persistent-net.rules
 rm -rfv /dev/.udev/
 rm -v /lib/udev/rules.d/75-persistent-net-generator.rules
 
@@ -25,13 +25,6 @@ rm -rfv /usr/src/vboxguest* /usr/src/virtualbox-ose-guest*
 
 # Clean any Python bytecode
 find / -type f -name "*.pyc" -delete
-
-# Whiteout root
-echo "Whiteouting /"
-count=`df --sync -kP / | tail -n1  | awk -F ' ' '{print $4}'`;
-count=$((count -= 1))
-dd if=/dev/zero of=/tmp/whitespace bs=1024 count=$count;
-rm /tmp/whitespace;
  
 # Whiteout /boot
 echo "Whiteouting /boot"
@@ -41,12 +34,17 @@ dd if=/dev/zero of=/boot/whitespace bs=1024 count=$count;
 rm /boot/whitespace;
  
 # Whiteout swap 
-echo "Whiteouting swap"
-swappart=`cat /proc/swaps | tail -n1 | awk -F ' ' '{print $1}'`
-swapoff $swappart;
-dd if=/dev/zero of=$swappart;
-mkswap $swappart;
-swapon $swappart;
+echo "Whiteouting swaps"
+if [ $(cat /proc/swaps | wc -l) -gt 1 ]; then
+    for swappart in `cat /proc/swaps | tail -n +2 | awk -F ' ' '{print $1}'`; do
+        oldUUID="$(blkid $swappart | awk '{print $2}' | cut -d '"' -f 2)"
+        swapoff $swappart;
+        dd if=/dev/zero of=$swappart;
+        mkswap -U $oldUUID $swappart;
+        swapon $swappart;
+    done
+    unset oldUUID
+fi
 
 # Zero out the rest of the free space using dd.
 echo "Zero out the free space to aid VM compression"
