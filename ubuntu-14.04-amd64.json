@@ -77,7 +77,7 @@
                         "scripts/python.sh",
                         "scripts/virtualbox.sh",
                         "scripts/docker-14.04.sh",
-                        "scripts/cleanup.sh"
+                        "scripts/cleanup-14.04.sh"
                     ]
                 }
             },
